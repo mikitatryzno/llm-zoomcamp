@@ -1,4 +1,5 @@
 **Q1. Running Elastic**
+
 First, we need to run Elasticsearch 8.17.6 using Podman (I use Podman more frequently lately instead of Docker)
 Open VS Code's terminal
 
@@ -114,6 +115,7 @@ print(f"Indexed all {len(documents)} documents")
 The function used to add data to Elasticsearch is `index`.
 
 **Q3. Searching**
+
 Let's search for "How do execute a command on a Kubernetes pod?":
 ```python
 query = "How do execute a command on a Kubernetes pod?"
@@ -144,6 +146,7 @@ print(f"\nTop score (answer to Q3): {top_score}")
 The score for the top ranking result will be displayed `44.50556`. It is close to `44.50`
 
 **Q4. Filtering**
+
 Now let's search for "How do copy a file to a Docker container?" but only in machine-learning-zoomcamp:
 
 ```python
@@ -188,6 +191,7 @@ else:
 Third question is `How do I copy files from a different folder into docker container’s working directory?`
 
 **Q5. Building a prompt**
+
 Let's build the prompt using the results from Q4:
 ```python
 # Build context using the template
@@ -226,6 +230,7 @@ print(f"\nPrompt length (answer to Q5): {prompt_length} characters")
 The length of the resulting prompt is `1460` which is close to `1446` from options.
 
 **Q6. Tokens**
+
 Let's calculate the number of tokens in our prompt:
 
 ```python
