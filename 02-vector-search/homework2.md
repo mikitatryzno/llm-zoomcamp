@@ -87,7 +87,9 @@ print(f"Similarity score: {highest_similarity}")
 print(f"Document text: {documents[highest_idx]['text'][:100]}...")
 ```
 Document with highest similarity is `1`
+
 Similarity score is `0.8182378150042889`
+
 Document text is `Yes, we will keep all the materials after the course finishes, so you can follow the course at your .`
 
 **Q4. Ranking by cosine, version two**
@@ -109,8 +111,11 @@ print(f"Similarity score: {highest_similarity_full}")
 print(f"Document question: {documents[highest_idx_full]['question']}")
 ```
 The answer is the index of the document with the highest similarity score when using the full text.
+
 Document with highest similarity (full text): `0`, 
+
 Similarity score: `0.8514543236908068`
+
 This demonstrates why RAG systems often benefit from carefully considering which fields to include in the embedding process, as different combinations can yield different retrieval results.
 
 **Q5. Selecting the embedding model**
