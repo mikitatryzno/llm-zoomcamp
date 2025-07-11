@@ -1,9 +1,13 @@
 import random
 from fastmcp import FastMCP
+
 known_weather_data = {
     'berlin': 20.0
 }
-mcp = FastMCP("Demo 🚀")
+
+# Use plain text instead of emoji
+mcp = FastMCP("Demo Server")
+
 @mcp.tool
 def get_weather(city: str) -> float:
     """

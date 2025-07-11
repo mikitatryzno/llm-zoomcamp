@@ -135,9 +135,11 @@ if __name__ == "__main__":
 ```
 
 When you run this script, you'll see output like:
+
 ```
 Starting MCP server 'Demo 🚀' with transport 'stdio'
 ```
+
 The answer for the TODO is `stdio`.
 
 **Q5. Protocol**
@@ -156,129 +158,19 @@ Confirm initialization:
 ```
 
 Request available methods:
+
 ```json
 {"jsonrpc": "2.0", "id": 2, "method": "tools/list"}
 ```
 Ask for temperature in Berlin:
+
 ```json
 {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "get_weather", "arguments": {"city": "Berlin"}}}
 ```
 The response would be something like:
+
 ```json
 {"jsonrpc":"2.0","id":3,"result":20.0}
 ```
 
-***Q6. Client**
-
-Using the provided mcp_client.py, let's implement an MCP client to interact with our server:
-
-```python
-# client_script.py
-import asyncio
-from fastmcp import Client
-import weather_server  # Import our weather server module
-# For Jupyter notebook
-async def main():
-    async with Client(weather_server.mcp) as mcp_client:
-        tools = await mcp_client.tools.list()
-        print(tools)
-# For running as a script
-if __name__ == "__main__":
-    asyncio.run(main())
-```    
-
-The output will look something like:
-
-```json
-{
-  "tools": [
-    {
-      "name": "get_weather",
-      "description": "Retrieves the temperature for a specified city.",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "city": {
-            "type": "string",
-            "description": "The name of the city for which to retrieve weather data."
-          }
-        },
-        "required": ["city"]
-      },
-      "outputSchema": {
-        "type": "number",
-        "description": "The temperature associated with the city."
-      }
-    },
-    {
-      "name": "set_weather",
-      "description": "Sets the temperature for a specified city.",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "city": {
-            "type": "string",
-            "description": "The name of the city for which to set the weather data."
-          },
-          "temp": {
-            "type": "number",
-            "description": "The temperature to associate with the city."
-          }
-        },
-        "required": ["city", "temp"]
-      },
-      "outputSchema": {
-        "type": "string",
-        "description": "A confirmation string 'OK' indicating successful update."
-      }
-    }
-  ]
-}
-```
-
-Summary of Answers
-Q1: The value for TODO3 is "city".
-Q2: A complete function description for set_weather was provided above.
-Q3: The version of FastMCP will depend on when you install it (e.g., 1.9.4).
-Q4: The transport used in the MCP server output is stdio.
-Q5: The response for the Berlin temperature query would be {"jsonrpc":"2.0","id":3,"result":20.0}.
-Q6: The output shows the list of available tools with their descriptions, input schemas, and output schemas as shown above.
-
-
-**Optional: Using MCP with chat_assistant.py**
-If you want to integrate the MCP server with the chat assistant:
-
-Download the chat_assistant.py file:
-```bash
-wget https://raw.githubusercontent.com/alexeygrigorev/rag-agents-workshop/refs/heads/main/chat_assistant.py
-```
-
-Use the provided MCPTools class from mcp_client.py to integrate with the chat assistant:
-```python
-import mcp_client
-import chat_assistant
-from openai import OpenAI
-# Initialize OpenAI client
-client = OpenAI()
-# Initialize the MCP client
-our_mcp_client = mcp_client.MCPClient(["python", "weather_server.py"])
-our_mcp_client.start_server()
-our_mcp_client.initialize()
-our_mcp_client.initialized()
-# Create MCP tools wrapper
-mcp_tools = mcp_client.MCPTools(mcp_client=our_mcp_client)
-# Set up the chat assistant
-developer_prompt = """
-You help users find out the weather in their cities. 
-If they didn't specify a city, ask them. Make sure we always use a city.
-""".strip()
-chat_interface = chat_assistant.ChatInterface()
-chat = chat_assistant.ChatAssistant(
-    tools=mcp_tools,
-    developer_prompt=developer_prompt,
-    chat_interface=chat_interface,
-    client=client
-)
-# Run the chat assistant
-chat.run()
 ```
