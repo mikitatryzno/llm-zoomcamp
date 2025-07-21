@@ -258,7 +258,7 @@ print(f"Hit rate: {results_q4['hit_rate']}")
 print(f"MRR: {results_q4['mrr']}")
 ```
 
-MRR value `0.85` is closest to our result `0.086`.
+MRR value `0.65` is closest to our result `0.086`.
 
 **Q5. Cosine similarity**
 
